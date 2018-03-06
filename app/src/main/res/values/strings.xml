@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FoodDemo</string>
+    <string name="title_activity_capture_image">CaptureImage</string>
+    <string name="title_activity_food_recognition">FoodRecognition</string>
+    <string name="title_activity_user_logs">UserLogs</string>
+    <string name="title_activity_food_log">FoodLogActivity</string>
+</resources>
