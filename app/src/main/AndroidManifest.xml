@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tom13.fooddemo">
 
+    <uses-feature android:name="android.hardware.camera" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,10 +19,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.CaptureImageActivity"
-            android:label="@string/title_activity_capture_image"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".view.FoodRecognitionActivity"
             android:label="@string/title_activity_food_recognition"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -32,7 +30,8 @@
             android:name=".view.FoodLogActivity"
             android:label="@string/title_activity_food_log"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.Splash"></activity>
+        <activity android:name=".view.Splash" />
+        <activity android:name=".view.CaptureImageActivity"></activity>
     </application>
 
 </manifest>
