@@ -1,4 +1,4 @@
-package com.example.tom13.fooddemo.view;
+package com.example.tom13.fooddemo.views;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

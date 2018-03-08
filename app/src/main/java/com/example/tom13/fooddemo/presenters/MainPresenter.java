@@ -1,10 +1,10 @@
-package com.example.tom13.fooddemo.presenter;
+package com.example.tom13.fooddemo.presenters;
 
 import android.content.Context;
 import android.content.Intent;
 
-import com.example.tom13.fooddemo.view.CaptureImageActivity;
-import com.example.tom13.fooddemo.view.UserLogsActivity;
+import com.example.tom13.fooddemo.views.CaptureImageActivity;
+import com.example.tom13.fooddemo.views.UserLogsActivity;
 
 
 /**

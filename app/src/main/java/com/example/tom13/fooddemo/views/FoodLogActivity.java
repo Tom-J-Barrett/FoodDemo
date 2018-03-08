@@ -1,4 +1,4 @@
-package com.example.tom13.fooddemo.view;
+package com.example.tom13.fooddemo.views;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
