@@ -30,6 +30,10 @@ public class Host {
         return port;
     }
 
+    public String getUrl() {
+        return "http://" + dns + ":" + port;
+    }
+
     @Override
     public String toString() {
         return new StringBuilder(this.getIpv4())
