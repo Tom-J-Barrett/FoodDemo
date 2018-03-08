@@ -1,11 +1,11 @@
-package com.example.tom13.fooddemo.view;
+package com.example.tom13.fooddemo.views;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.tom13.fooddemo.R;
-import com.example.tom13.fooddemo.presenter.MainPresenter;
+import com.example.tom13.fooddemo.presenters.MainPresenter;
 
 public class MainActivity extends AppCompatActivity {
 

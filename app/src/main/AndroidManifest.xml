@@ -3,6 +3,8 @@
     package="com.example.tom13.fooddemo">
 
     <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.MainActivity">
+        <activity android:name=".views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,19 +21,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.FoodRecognitionActivity"
-            android:label="@string/title_activity_food_recognition"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".view.UserLogsActivity"
+            android:name=".views.UserLogsActivity"
             android:label="@string/title_activity_user_logs"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.FoodLogActivity"
+            android:name=".views.FoodLogActivity"
             android:label="@string/title_activity_food_log"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.Splash" />
-        <activity android:name=".view.CaptureImageActivity"></activity>
+        <activity android:name=".views.Splash" />
+        <activity android:name=".views.CaptureImageActivity"></activity>
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
     </application>
 
 </manifest>

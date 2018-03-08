@@ -5,4 +5,13 @@ package com.example.tom13.fooddemo.host;
  */
 
 public class HostFactory {
+
+    public Host createHost() {
+        Host host = new Host.HostBuilder("")
+                    .withDns("")
+                    .withPort(5000)
+                    .build();
+
+        return host;
+    }
 }
