@@ -25,7 +25,8 @@ public class ImageToServer {
     }
 
     public void sendImage() {
-        UploadImage uploadImage = (UploadImage) new UploadImage(new Host.HostBuilder("").build(), base64Image).execute();
+        UploadImage uploadImage = new UploadImage(new Host.HostBuilder("").build(), base64Image);
+        uploadImage.execute();
     }
 
     public String toBase64() {
