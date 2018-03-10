@@ -1,5 +1,7 @@
 package com.example.tom13.fooddemo.requests;
 
+import android.util.Log;
+
 import com.example.tom13.fooddemo.host.Host;
 
 import org.apache.http.NameValuePair;
@@ -25,8 +27,11 @@ public class RequestFactory {
     }
 
     public HttpUriRequest getRequest() throws UnsupportedEncodingException {
+        Log.v("log_tag", "Pass 1");
         HttpPost httppost = new HttpPost(host.getUrl());
+        Log.v("log_tag", "Pass 2");
         httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+        Log.v("log_tag", "Pass 3");
         return httppost;
     }
 }

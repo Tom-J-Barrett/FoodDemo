@@ -44,4 +44,9 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         captureImagePresenter.sendImage();
     }
+
+    public void onResponse() {
+        ProgressBar progressBar = findViewById(R.id.progressBar2);
+        progressBar.setVisibility(View.INVISIBLE);
+    }
 }

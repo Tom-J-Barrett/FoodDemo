@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 
 import com.example.tom13.fooddemo.R;
 import com.example.tom13.fooddemo.requests.ImageToServer;
+import com.example.tom13.fooddemo.views.CaptureImageActivity;
 import com.example.tom13.fooddemo.views.MainActivity;
 import com.example.tom13.fooddemo.views.UserLogsActivity;
 
@@ -66,7 +67,12 @@ public class CaptureImagePresenter {
     }
 
     public void sendImage() {
-        ImageToServer imageToServer = new ImageToServer(output);
+        ImageToServer imageToServer = new ImageToServer(output, this);
         imageToServer.sendImage();
+    }
+
+    public void responseFromSever(String response) {
+        CaptureImageActivity mainActivity = (CaptureImageActivity) activity;
+        mainActivity.onResponse();
     }
 }
