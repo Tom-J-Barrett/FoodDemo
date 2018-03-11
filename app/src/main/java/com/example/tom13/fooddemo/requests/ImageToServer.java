@@ -28,7 +28,7 @@ public class ImageToServer {
     }
 
     public void sendImage() {
-        UploadImage uploadImage = new UploadImage(new HostFactory().createHost(), base64Image, captureImagePresenter);
+        UploadImage uploadImage = new UploadImage(new HostFactory().createHost(), base64Image, captureImagePresenter, image);
         uploadImage.execute();
     }
 

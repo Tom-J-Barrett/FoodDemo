@@ -7,12 +7,11 @@ package com.example.tom13.fooddemo.host;
 public class HostFactory {
 
     public Host createHost() {
-        Host host = new Host.HostBuilder("34.245.171.85")
-                    .withDns("ec2-34-245-171-85.eu-west-1.compute.amazonaws.com")
+        Host host = new Host.HostBuilder("34.241.30.253")
+                    .withDns("ec2-34-241-30-253.eu-west-1.compute.amazonaws.com")
                     .withPort(5000)
-                    .withDirectory("/classifyImage/")
+                    .withRoute("/classifyImage/")
                     .build();
-
         return host;
     }
 }

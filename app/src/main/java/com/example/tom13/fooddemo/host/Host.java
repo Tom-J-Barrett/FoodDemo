@@ -11,13 +11,13 @@ public class Host {
     private final String ipv4;
     private final String dns;
     private final int port;
-    private final String directory;
+    private final String route;
 
     private Host(HostBuilder builder) {
         this.ipv4 = builder.ipv4;
         this.dns = builder.dns;
         this.port = builder.port;
-        this.directory = builder.directory;
+        this.route = builder.route;
     }
 
     public String getIpv4() {
@@ -28,12 +28,14 @@ public class Host {
         return dns;
     }
 
+    public String getRoute() { return route;}
+
     public int getPort() {
         return port;
     }
 
     public String getUrl() {
-        return "http://" + dns + ":" + port + directory;
+        return "http://" + dns + ":" + port + route;
     }
 
     @Override
@@ -48,7 +50,7 @@ public class Host {
         private final String ipv4;
         private String dns;
         private int port;
-        private String directory;
+        private String route;
 
         public HostBuilder(String ipv4) {
             this.ipv4 = ipv4;
@@ -64,8 +66,8 @@ public class Host {
             return this;
         }
 
-        public HostBuilder withDirectory(String directory) {
-            this.directory = directory;
+        public HostBuilder withRoute(String route) {
+            this.route = route;
             return this;
         }
 

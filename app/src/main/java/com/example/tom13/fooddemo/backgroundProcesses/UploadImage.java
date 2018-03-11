@@ -12,6 +12,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
@@ -37,11 +38,13 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
     private Host host;
     private String image;
     private CaptureImagePresenter captureImagePresenter;
+    private File file;
 
-    public UploadImage(Host host, String image, CaptureImagePresenter captureImagePresenter) {
+    public UploadImage(Host host, String image, CaptureImagePresenter captureImagePresenter, File file) {
         this.host = host;
         this.image = image;
         this.captureImagePresenter = captureImagePresenter;
+        this.file = file;
     }
 
     protected void onPreExecute() {
@@ -53,7 +56,14 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost(host.getUrl());
 
+        MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
+        multipartEntityBuilder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+        multipartEntityBuilder.addBinaryBody("upfile", file, ContentType.DEFAULT_BINARY, "foodImage");
+
+        HttpEntity httpEntity = multipartEntityBuilder.build();
+        httppost.setEntity(httpEntity);
         try {
+            Log.v("message", host.getUrl());
             HttpResponse httpResponse = httpclient.execute(httppost);
             Log.v("message", String.valueOf(httpResponse.getStatusLine().getStatusCode()));
         } catch (IOException e) {
