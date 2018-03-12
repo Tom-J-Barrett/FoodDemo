@@ -24,6 +24,7 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
 
         MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
         multipartEntityBuilder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-        multipartEntityBuilder.addBinaryBody("upfile", file, ContentType.DEFAULT_BINARY, "foodImage");
+        multipartEntityBuilder.addBinaryBody("file", file, ContentType.DEFAULT_BINARY, "file");
 
         HttpEntity httpEntity = multipartEntityBuilder.build();
         httppost.setEntity(httpEntity);
