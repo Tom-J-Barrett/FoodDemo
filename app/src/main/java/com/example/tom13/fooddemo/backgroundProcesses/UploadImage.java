@@ -1,36 +1,21 @@
 package com.example.tom13.fooddemo.backgroundProcesses;
-import android.app.Activity;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.util.Log;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.SimpleMultiPartRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.tom13.fooddemo.host.Host;
 import com.example.tom13.fooddemo.presenters.CaptureImagePresenter;
-import com.example.tom13.fooddemo.requests.RequestFactory;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.mime.content.ContentBody;
-import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.net.SocketException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -38,9 +23,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okio.BufferedSink;
-
-import static org.apache.http.entity.mime.HttpMultipartMode.BROWSER_COMPATIBLE;
 
 /**
  * Created by tom13 on 08/03/2018.
@@ -90,9 +72,10 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
 //                .setType(MultipartBody.FORM)
 //                .addFormDataPart("file", "image.jpg", RequestBody.create(MediaType.parse("image/jpg"), file))
 //                .build();
+        String test = image;
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("image", image)
+                .addFormDataPart("image", test)
                 .build();
 
         Request request = new Request.Builder().url(host.getUrl())
@@ -106,6 +89,34 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //Log.v("request", image.substring(0, 1000000));
+
+//        SimpleMultiPartRequest smr = new SimpleMultiPartRequest(com.android.volley.Request.Method.POST, host.getUrl(),
+//                new com.android.volley.Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        Log.d("Response", response);
+//                        try {
+//                            JSONObject jObj = new JSONObject(response);
+//                            String message = jObj.getString("message");
+//                            Log.v("request", message);
+//
+//                        } catch (JSONException e) {
+//                            // JSON error
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }, new com.android.volley.Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.v("request", error.getMessage());
+//            }
+//        });
+//
+//        smr.addFile("image", file.getAbsolutePath());
+//        RequestQueue rQueue = Volley.newRequestQueue(captureImagePresenter.getActivity());
+//        rQueue.add(smr);
+
         return "YAY";
     }
 
@@ -113,7 +124,5 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
         captureImagePresenter.responseFromSever(result);
         super.onPostExecute(result);
     }
-
-    
 }
 

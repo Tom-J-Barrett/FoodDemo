@@ -75,4 +75,8 @@ public class CaptureImagePresenter {
         CaptureImageActivity mainActivity = (CaptureImageActivity) activity;
         mainActivity.onResponse();
     }
+
+    public Activity getActivity(){
+        return activity;
+    }
 }
