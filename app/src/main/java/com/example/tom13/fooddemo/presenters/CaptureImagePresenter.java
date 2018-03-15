@@ -72,8 +72,8 @@ public class CaptureImagePresenter {
     }
 
     public void responseFromSever(String response) {
-        CaptureImageActivity mainActivity = (CaptureImageActivity) activity;
-        mainActivity.onResponse();
+        CaptureImageActivity captureImageActivity = (CaptureImageActivity) activity;
+        captureImageActivity.onResponse(response);
     }
 
     public Activity getActivity(){

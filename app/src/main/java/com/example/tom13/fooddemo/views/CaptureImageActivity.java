@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.tom13.fooddemo.R;
 import com.example.tom13.fooddemo.presenters.CaptureImagePresenter;
@@ -45,8 +46,12 @@ public class CaptureImageActivity extends AppCompatActivity {
         captureImagePresenter.sendImage();
     }
 
-    public void onResponse() {
+    public void onResponse(String response) {
         ProgressBar progressBar = findViewById(R.id.progressBar2);
         progressBar.setVisibility(View.INVISIBLE);
+
+        TextView textView = findViewById(R.id.textView);
+        textView.setVisibility(View.VISIBLE);
+        textView.setText(response);
     }
 }

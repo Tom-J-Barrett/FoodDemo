@@ -35,6 +35,7 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
     private String image;
     private CaptureImagePresenter captureImagePresenter;
     private File file;
+    //private String result = "";
 
     public UploadImage(Host host, String image, CaptureImagePresenter captureImagePresenter, File file) {
         this.host = host;
@@ -49,29 +50,8 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... params) {
-//        HttpClient httpclient = new DefaultHttpClient();
-//        HttpPost httppost = new HttpPost(host.getUrl());
-//
-//        MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
-//        multipartEntityBuilder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-//        multipartEntityBuilder.addBinaryBody("file", file, ContentType.DEFAULT_BINARY, "file");
-//
-//        HttpEntity httpEntity = multipartEntityBuilder.build();
-//        httppost.setEntity(httpEntity);
-//        try {
-//            Log.v("message", host.getUrl());
-//            HttpResponse httpResponse = httpclient.execute(httppost);
-//            Log.v("message", String.valueOf(httpResponse.getStatusLine().getStatusCode()));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
+        String result = "";
         OkHttpClient client = new OkHttpClient();
-
-//        RequestBody requestBody = new MultipartBody.Builder()
-//                .setType(MultipartBody.FORM)
-//                .addFormDataPart("file", "image.jpg", RequestBody.create(MediaType.parse("image/jpg"), file))
-//                .build();
         String test = image;
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -84,40 +64,14 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
         Response response = null;
         try {
             response = client.newCall(request).execute();
-            Log.v("request", response.body().string());
+            result = response.body().string();
+            //Log.v("request", response.body().string());
             response.body().close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //Log.v("request", image.substring(0, 1000000));
 
-//        SimpleMultiPartRequest smr = new SimpleMultiPartRequest(com.android.volley.Request.Method.POST, host.getUrl(),
-//                new com.android.volley.Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        Log.d("Response", response);
-//                        try {
-//                            JSONObject jObj = new JSONObject(response);
-//                            String message = jObj.getString("message");
-//                            Log.v("request", message);
-//
-//                        } catch (JSONException e) {
-//                            // JSON error
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }, new com.android.volley.Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.v("request", error.getMessage());
-//            }
-//        });
-//
-//        smr.addFile("image", file.getAbsolutePath());
-//        RequestQueue rQueue = Volley.newRequestQueue(captureImagePresenter.getActivity());
-//        rQueue.add(smr);
-
-        return "YAY";
+        return result;
     }
 
     protected void onPostExecute(String result) {
