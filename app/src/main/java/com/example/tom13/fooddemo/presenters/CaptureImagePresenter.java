@@ -6,18 +6,19 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.example.tom13.fooddemo.R;
-import com.example.tom13.fooddemo.requests.ImageToServer;
+import com.example.tom13.fooddemo.backgroundProcesses.CalorieEstimation;
+import com.example.tom13.fooddemo.backgroundProcesses.UploadImage;
+import com.example.tom13.fooddemo.calorieEstimation.CalorieEstimationFactory;
+import com.example.tom13.fooddemo.host.HostFactory;
+import com.example.tom13.fooddemo.image.Base64Image;
 import com.example.tom13.fooddemo.views.CaptureImageActivity;
 import com.example.tom13.fooddemo.views.MainActivity;
-import com.example.tom13.fooddemo.views.UserLogsActivity;
 
 import java.io.File;
+import java.util.List;
 
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -67,13 +68,23 @@ public class CaptureImagePresenter {
     }
 
     public void sendImage() {
-        ImageToServer imageToServer = new ImageToServer(output, this);
-        imageToServer.sendImage();
+        UploadImage uploadImage = new UploadImage(new HostFactory().createHost(), new Base64Image(output).getBase64Image(), this);
+        uploadImage.execute();
     }
 
     public void responseFromSever(String response) {
+        String[] results = response.split(",");
+        getCalories(results[0]);
+    }
+
+    public void getCalories(String query) {
+        CalorieEstimation calorieEstimation = new CalorieEstimationFactory(query, this).getCalorieEstimator();
+        calorieEstimation.execute();
+    }
+
+    public void updateUI(String results) {
         CaptureImageActivity captureImageActivity = (CaptureImageActivity) activity;
-        captureImageActivity.onResponse(response);
+        captureImageActivity.onResponse(results);
     }
 
     public Activity getActivity(){
