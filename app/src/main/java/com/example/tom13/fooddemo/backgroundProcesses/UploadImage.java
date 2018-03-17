@@ -38,10 +38,10 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
         String result = "";
         OkHttpClient client = new OkHttpClient();
-        String test = image;
+        String imageToSend = image;
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("image", test)
+                .addFormDataPart("image", imageToSend)
                 .build();
 
         Request request = new Request.Builder().url(host.getUrl())

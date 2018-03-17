@@ -43,7 +43,10 @@ public class CaptureImageActivity extends AppCompatActivity {
         ProgressBar progressBar = findViewById(R.id.progressBar2);
         progressBar.setVisibility(View.VISIBLE);
 
-        captureImagePresenter.sendImage();
+        Thread t = new Thread(new Runnable() { public void run() {
+            captureImagePresenter.sendImage();
+        }});
+        t.start();
     }
 
     public void onResponse(String response) {
@@ -53,5 +56,8 @@ public class CaptureImageActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView);
         textView.setVisibility(View.VISIBLE);
         textView.setText(response);
+
+        Button submitButton = findViewById(R.id.button5);
+        submitButton.setVisibility(View.VISIBLE);
     }
 }

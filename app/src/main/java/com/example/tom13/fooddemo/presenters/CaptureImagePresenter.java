@@ -2,6 +2,7 @@ package com.example.tom13.fooddemo.presenters;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
@@ -14,6 +15,7 @@ import com.example.tom13.fooddemo.backgroundProcesses.UploadImage;
 import com.example.tom13.fooddemo.calorieEstimation.CalorieEstimationFactory;
 import com.example.tom13.fooddemo.host.HostFactory;
 import com.example.tom13.fooddemo.image.Base64Image;
+import com.example.tom13.fooddemo.image.ExifUtil;
 import com.example.tom13.fooddemo.views.CaptureImageActivity;
 import com.example.tom13.fooddemo.views.MainActivity;
 
@@ -57,8 +59,11 @@ public class CaptureImagePresenter {
                     101, galleryPermissions);
         }
         if (requestCode == CONTENT_REQUEST && resultCode == RESULT_OK) {
+            Bitmap bitmap = BitmapFactory.decodeFile(output.getAbsolutePath());
+            Bitmap orientedBitmap = ExifUtil.rotateBitmap(output.getAbsolutePath(), bitmap);
             ImageView imageView= activity.findViewById(R.id.imageView);
-            imageView.setImageBitmap(BitmapFactory.decodeFile(output.getAbsolutePath()));
+            imageView.setImageBitmap(orientedBitmap);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         }
     }
 
