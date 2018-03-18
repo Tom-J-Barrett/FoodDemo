@@ -1,22 +1,16 @@
 package com.example.tom13.fooddemo.backgroundProcesses;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
-import com.couchbase.lite.CouchbaseLiteException;
 import com.example.tom13.fooddemo.presenters.CaptureImagePresenter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
-import java.util.List;
-
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
+
 import okhttp3.Response;
 
 /**

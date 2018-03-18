@@ -1,6 +1,5 @@
 package com.example.tom13.fooddemo.storage;
 
-import com.couchbase.lite.CouchbaseLiteException;
 import com.example.tom13.fooddemo.foodLog.FoodLog;
 
 import java.util.Date;

@@ -1,6 +1,5 @@
 package com.example.tom13.fooddemo.views;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.couchbase.lite.CouchbaseLiteException;
 import com.example.tom13.fooddemo.R;
 import com.example.tom13.fooddemo.presenters.CaptureImagePresenter;
 
@@ -73,7 +71,7 @@ public class CaptureImageActivity extends AppCompatActivity {
         submitButton.setVisibility(View.VISIBLE);
     }
 
-    public void submit(View view) throws CouchbaseLiteException {
+    public void submit(View view) {
         EditText editText = findViewById(R.id.editText3);
         EditText editText2 = findViewById(R.id.editText5);
 
