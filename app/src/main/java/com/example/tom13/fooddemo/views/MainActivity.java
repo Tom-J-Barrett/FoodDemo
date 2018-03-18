@@ -2,6 +2,7 @@ package com.example.tom13.fooddemo.views;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.example.tom13.fooddemo.R;

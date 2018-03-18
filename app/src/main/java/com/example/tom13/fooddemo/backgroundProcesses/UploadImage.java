@@ -1,20 +1,9 @@
 package com.example.tom13.fooddemo.backgroundProcesses;
 import android.os.AsyncTask;
-import android.util.Log;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.error.VolleyError;
-import com.android.volley.request.SimpleMultiPartRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.tom13.fooddemo.host.Host;
 import com.example.tom13.fooddemo.presenters.CaptureImagePresenter;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 
 import okhttp3.MediaType;
@@ -34,14 +23,11 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
     private Host host;
     private String image;
     private CaptureImagePresenter captureImagePresenter;
-    private File file;
-    //private String result = "";
 
-    public UploadImage(Host host, String image, CaptureImagePresenter captureImagePresenter, File file) {
+    public UploadImage(Host host, String image, CaptureImagePresenter captureImagePresenter) {
         this.host = host;
         this.image = image;
         this.captureImagePresenter = captureImagePresenter;
-        this.file = file;
     }
 
     protected void onPreExecute() {
@@ -52,10 +38,10 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
         String result = "";
         OkHttpClient client = new OkHttpClient();
-        String test = image;
+        String imageToSend = image;
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("image", test)
+                .addFormDataPart("image", imageToSend)
                 .build();
 
         Request request = new Request.Builder().url(host.getUrl())
@@ -65,7 +51,6 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
         try {
             response = client.newCall(request).execute();
             result = response.body().string();
-            //Log.v("request", response.body().string());
             response.body().close();
         } catch (IOException e) {
             e.printStackTrace();
