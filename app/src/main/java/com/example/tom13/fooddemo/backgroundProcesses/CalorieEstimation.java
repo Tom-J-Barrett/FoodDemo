@@ -3,6 +3,7 @@ package com.example.tom13.fooddemo.backgroundProcesses;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.couchbase.lite.CouchbaseLiteException;
 import com.example.tom13.fooddemo.presenters.CaptureImagePresenter;
 
 import org.json.JSONArray;
@@ -57,7 +58,7 @@ public class CalorieEstimation extends AsyncTask<Void, Void, String> {
             JSONObject hits = jsonArray.getJSONObject(0);
             JSONObject fields = hits.getJSONObject("fields");
             String calories = fields.getString("nf_calories");
-            result = searchQuery + "," + calories;
+            result = calories;
         } catch (JSONException e) {
             e.printStackTrace();
         }

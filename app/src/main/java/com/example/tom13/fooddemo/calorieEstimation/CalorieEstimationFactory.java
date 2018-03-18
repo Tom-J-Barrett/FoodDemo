@@ -19,7 +19,7 @@ public class CalorieEstimationFactory {
         this.captureImagePresenter = captureImagePresenter;
     }
 
-    public CalorieEstimation getCalorieEstimator() {
+    public AsyncTask<Void, Void, String> getCalorieEstimator() {
         return new CalorieEstimation(query, captureImagePresenter);
     }
 }

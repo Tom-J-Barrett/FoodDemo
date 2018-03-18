@@ -5,21 +5,29 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.widget.ImageView;
 
+import com.couchbase.lite.CouchbaseLiteException;
 import com.example.tom13.fooddemo.R;
 import com.example.tom13.fooddemo.backgroundProcesses.CalorieEstimation;
 import com.example.tom13.fooddemo.backgroundProcesses.UploadImage;
 import com.example.tom13.fooddemo.calorieEstimation.CalorieEstimationFactory;
+import com.example.tom13.fooddemo.foodLog.FoodLog;
+import com.example.tom13.fooddemo.foodLog.FoodLogImpl;
 import com.example.tom13.fooddemo.host.HostFactory;
 import com.example.tom13.fooddemo.image.Base64Image;
 import com.example.tom13.fooddemo.image.ExifUtil;
+import com.example.tom13.fooddemo.storage.CouchbaseDAO;
+import com.example.tom13.fooddemo.storage.DAO;
+import com.example.tom13.fooddemo.storage.DAOFactory;
 import com.example.tom13.fooddemo.views.CaptureImageActivity;
 import com.example.tom13.fooddemo.views.MainActivity;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 import pub.devrel.easypermissions.EasyPermissions;
@@ -35,6 +43,8 @@ public class CaptureImagePresenter {
     private Activity activity;
     private static final int CONTENT_REQUEST=1337;
     private File output=null;
+    private String top1_prediction;
+    private String calories;
 
     public CaptureImagePresenter(Activity activity) {
         this.activity = activity;
@@ -79,17 +89,30 @@ public class CaptureImagePresenter {
 
     public void responseFromSever(String response) {
         String[] results = response.split(",");
-        getCalories(results[0]);
+        top1_prediction = results[0];
+        getCalories();
     }
 
-    public void getCalories(String query) {
-        CalorieEstimation calorieEstimation = new CalorieEstimationFactory(query, this).getCalorieEstimator();
+    public void getCalories() {
+        CalorieEstimation calorieEstimation = (CalorieEstimation) new CalorieEstimationFactory(top1_prediction, this).getCalorieEstimator();
         calorieEstimation.execute();
     }
 
     public void updateUI(String results) {
+        calories = results;
         CaptureImageActivity captureImageActivity = (CaptureImageActivity) activity;
-        captureImageActivity.onResponse(results);
+        captureImageActivity.onResponse(top1_prediction, calories);
+    }
+
+    public void writeToLogs(String food, String calories) throws CouchbaseLiteException {
+        DAO dao = new DAOFactory().getDAO(activity);
+        dao.addFoodLog(new FoodLogImpl(food, Double.parseDouble(calories), new Date()));
+        goToMainActivity();
+    }
+
+    public void goToMainActivity() {
+        Intent intent = new Intent(activity, MainActivity.class);
+        activity.startActivity(intent);
     }
 
     public Activity getActivity(){
