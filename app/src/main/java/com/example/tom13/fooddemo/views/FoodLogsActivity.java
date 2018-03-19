@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.tom13.fooddemo.R;
 import com.example.tom13.fooddemo.presenters.FoodLogsPresenter;
+import com.example.tom13.fooddemo.views.gestures.FlingGesture;
 
 import java.util.Date;
 
@@ -25,12 +26,18 @@ public class FoodLogsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_logs);
         foodLogsPresenter = new FoodLogsPresenter(this);
+        populateWidgets();
+        FlingGesture flingGesture = new FlingGesture(this);
+    }
 
+    private void populateWidgets() {
         populateSpinner();
         populateListView();
 
         TextView textView = findViewById(R.id.textView8);
         textView.setText(new Date().toString());
+
+        populateCalorieCount();
     }
 
     private void populateSpinner() {
@@ -57,6 +64,7 @@ public class FoodLogsActivity extends AppCompatActivity {
 
     public void onSpinnerChange() {
         populateListView();
+        populateCalorieCount();
     }
 
     private void populateListView() {
@@ -64,6 +72,15 @@ public class FoodLogsActivity extends AppCompatActivity {
                 this, android.R.layout.simple_list_item_1, foodLogsPresenter.getListViewContents(currentSortType, dateToQuery));
         ListView listView = findViewById(R.id.listView);
         listView.setAdapter(adapter);
+    }
+
+    private void populateCalorieCount() {
+        Double calories = foodLogsPresenter.getCalories();
+        TextView textView = findViewById(R.id.textView6);
+
+        if(calories != null)
+            textView.setVisibility(View.VISIBLE);
+            textView.setText("Total Calories:   " + calories.toString());
     }
 
     private void updateDate() {

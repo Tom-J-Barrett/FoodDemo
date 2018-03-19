@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.example.tom13.fooddemo.foodLog.FoodLog;
 import com.example.tom13.fooddemo.storage.DAO;
 import com.example.tom13.fooddemo.storage.DAOFactory;
+import com.example.tom13.fooddemo.views.gestures.FlingGesture;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class FoodLogsPresenter {
     private final SimpleDateFormat dateFormat = new SimpleDateFormat(
             "yyyy-MM-dd", Locale.getDefault());
     private String listType;
+    private Double calories = 0.0;
 
     public FoodLogsPresenter(Activity activity) {
         this.activity = activity;
@@ -60,12 +62,14 @@ public class FoodLogsPresenter {
     public List<String> getListViewContents(String listType, Date dateToQuery) {
         this.listType = listType;
         this.dateToQuery = dateToQuery;
+        calories = 0.0;
 
         List<String> foodLogEntry = new ArrayList<>();
         List<FoodLog> foodLogs = listViewOptions.get(listType);
 
         for(FoodLog foodLog : foodLogs) {
             foodLogEntry.add(formatDate(foodLog.getTimestamp()) + "\n" + foodLog.getFood().toUpperCase() + " / " + foodLog.getCalories() + " Calories");
+            calories += foodLog.getCalories();
         }
         return foodLogEntry;
     }
@@ -84,5 +88,9 @@ public class FoodLogsPresenter {
         calendar.add(dateChanges.get(listType), 1);
         Date newDate = calendar.getTime();
         return newDate;
+    }
+
+    public Double getCalories() {
+        return calories;
     }
 }

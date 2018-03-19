@@ -52,7 +52,6 @@ public class SqlLiteDAO implements DAO{
         stmt.bindString(2, String.valueOf(foodLog.getCalories()));
         stmt.bindString(3, parseDate(foodLog.getTimestamp()));
         stmt.execute();
-        System.out.println("HI");
     }
 
     @Override
@@ -66,10 +65,15 @@ public class SqlLiteDAO implements DAO{
     public List<FoodLog> getLogsByWeek(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        calendar.add(Calendar.DAY_OF_YEAR, 7);
-        Date newDate = calendar.getTime();
+        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+        Date startOfWeek = calendar.getTime();
 
-        String query = "Select * FROM FoodLog WHERE Timestamp BETWEEN '" + parseDate(date) + "' AND '" + parseDate(newDate) + "';";
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.setTime(startOfWeek);
+        calendar2.add(Calendar.WEEK_OF_MONTH, 1);
+        Date endOfWeek = calendar2.getTime();
+
+        String query = "Select * FROM FoodLog WHERE Timestamp BETWEEN '" + parseDate(startOfWeek) + "' AND '" + parseDate(endOfWeek) + "';";
 
         return selectQuery(query);
     }
@@ -78,10 +82,15 @@ public class SqlLiteDAO implements DAO{
     public List<FoodLog> getLogsByMonth(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        calendar.add(Calendar.MONTH, 1);
-        Date newDate = calendar.getTime();
+        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+        Date startOfMonth = calendar.getTime();
 
-        String query = "Select * FROM FoodLog WHERE Timestamp BETWEEN '" + parseDate(date) + "' AND '" + parseDate(newDate) + "';";
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.setTime(startOfMonth);
+        calendar2.add(Calendar.MONTH, 1);
+        Date endOfMonth = calendar2.getTime();
+
+        String query = "Select * FROM FoodLog WHERE Timestamp BETWEEN '" + parseDate(startOfMonth) + "' AND '" + parseDate(endOfMonth) + "';";
 
         return selectQuery(query);
     }
@@ -91,7 +100,6 @@ public class SqlLiteDAO implements DAO{
         Cursor resultSet = database.rawQuery(query, null);
         while(resultSet.moveToNext()) {
             try {
-                System.out.println("BYE");
                 foodLogs.add(new FoodLogImpl(resultSet.getString(0), resultSet.getDouble(1), dateFormat.parse(resultSet.getString(2))));
             } catch (ParseException e) {
                 e.printStackTrace();
