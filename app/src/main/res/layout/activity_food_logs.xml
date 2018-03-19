@@ -79,12 +79,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/listView"
+            android:layout_below="@+id/listView"
             android:background="@drawable/round_button2"
+            android:onClick="onNextPressed"
+            android:text="NEXT"
             android:textColor="@color/toolbar"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:layout_below="@+id/listView"
-            android:text="CLEAR" />
+            android:visibility="visible" />
 
         <TextView
             android:id="@+id/textView6"

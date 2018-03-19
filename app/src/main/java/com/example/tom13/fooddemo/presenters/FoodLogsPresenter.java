@@ -5,7 +5,6 @@ import android.app.Activity;
 import com.example.tom13.fooddemo.foodLog.FoodLog;
 import com.example.tom13.fooddemo.storage.DAO;
 import com.example.tom13.fooddemo.storage.DAOFactory;
-import com.example.tom13.fooddemo.views.gestures.FlingGesture;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -63,7 +62,6 @@ public class FoodLogsPresenter {
         this.listType = listType;
         this.dateToQuery = dateToQuery;
         calories = 0.0;
-
         List<String> foodLogEntry = new ArrayList<>();
         List<FoodLog> foodLogs = listViewOptions.get(listType);
 

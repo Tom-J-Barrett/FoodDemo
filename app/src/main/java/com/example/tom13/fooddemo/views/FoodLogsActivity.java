@@ -1,7 +1,10 @@
 package com.example.tom13.fooddemo.views;
 
 import android.os.Bundle;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,7 +14,6 @@ import android.widget.TextView;
 
 import com.example.tom13.fooddemo.R;
 import com.example.tom13.fooddemo.presenters.FoodLogsPresenter;
-import com.example.tom13.fooddemo.views.gestures.FlingGesture;
 
 import java.util.Date;
 
@@ -19,7 +21,7 @@ public class FoodLogsActivity extends AppCompatActivity {
 
     private FoodLogsPresenter foodLogsPresenter;
     private String currentSortType;
-    private Date dateToQuery = null;
+    private Date dateToQuery = new Date();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,6 @@ public class FoodLogsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_food_logs);
         foodLogsPresenter = new FoodLogsPresenter(this);
         populateWidgets();
-        FlingGesture flingGesture = new FlingGesture(this);
     }
 
     private void populateWidgets() {
@@ -71,6 +72,7 @@ public class FoodLogsActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1, foodLogsPresenter.getListViewContents(currentSortType, dateToQuery));
         ListView listView = findViewById(R.id.listView);
+        listView.setAdapter(null);
         listView.setAdapter(adapter);
     }
 
@@ -80,18 +82,22 @@ public class FoodLogsActivity extends AppCompatActivity {
 
         if(calories != null)
             textView.setVisibility(View.VISIBLE);
-            textView.setText("Total Calories:   " + calories.toString());
+            textView.setText(String.format("Total Calories:   %.2f", calories));
     }
 
     private void updateDate() {
         dateToQuery = foodLogsPresenter.updateDateOnFling(dateToQuery);
-        populateListView();
         TextView textView = findViewById(R.id.textView8);
-        textView.setText(foodLogsPresenter.getDate());
+        textView.setText(dateToQuery.toString());
+        populateListView();
+        populateCalorieCount();
     }
 
-    public void onFling() {
+    public void onPreviousPressed(View view) {
+
+    }
+
+    public void onNextPressed(View view) {
         updateDate();
     }
-
 }

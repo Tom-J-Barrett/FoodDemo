@@ -27,7 +27,10 @@ public class CaptureImageActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        captureImagePresenter.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK)
+            captureImagePresenter.onActivityResult(requestCode, resultCode, data);
+        else if(resultCode == RESULT_CANCELED)
+            captureImagePresenter.cancel();
     }
 
     public void cancelButton(View view) {
