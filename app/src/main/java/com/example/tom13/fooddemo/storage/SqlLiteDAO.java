@@ -114,7 +114,11 @@ public class SqlLiteDAO implements DAO{
 
     @Override
     public void deleteFoodLogs(List<FoodLog> foodLogs) {
-
+        SQLiteStatement stmt = database.compileStatement("DELETE FROM FoodLog WHERE rowid = ?");
+        for(FoodLog foodLog: foodLogs) {
+            stmt.bindString(1, String.valueOf(foodLog.getId()));
+            stmt.execute();
+        }
     }
 
     @Override

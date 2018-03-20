@@ -10,4 +10,5 @@ public interface FoodLog {
     String getFood();
     double getCalories();
     Date getTimestamp();
+    int getId();
 }
