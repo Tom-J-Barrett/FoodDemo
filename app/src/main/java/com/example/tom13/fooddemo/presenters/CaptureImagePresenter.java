@@ -101,7 +101,7 @@ public class CaptureImagePresenter {
 
     public void writeToLogs(String food, String calories) {
         DAO dao = new DAOFactory().getDAO(activity);
-        dao.addFoodLog(new FoodLogImpl(food, Double.parseDouble(calories), new Date()));
+        dao.addFoodLog(new FoodLogImpl(0, food, Double.parseDouble(calories), new Date()));
         goToMainActivity();
     }
 

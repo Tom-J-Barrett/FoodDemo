@@ -36,7 +36,7 @@ public class FoodLogsActivity extends AppCompatActivity {
         populateListView();
 
         TextView textView = findViewById(R.id.textView8);
-        textView.setText(new Date().toString());
+        textView.setText(foodLogsPresenter.formatDate(new Date()));
 
         populateCalorieCount();
     }
@@ -88,7 +88,7 @@ public class FoodLogsActivity extends AppCompatActivity {
     private void updateDate() {
         dateToQuery = foodLogsPresenter.updateDateOnFling(dateToQuery);
         TextView textView = findViewById(R.id.textView8);
-        textView.setText(dateToQuery.toString());
+        textView.setText(foodLogsPresenter.formatDate(dateToQuery));
         populateListView();
         populateCalorieCount();
     }

@@ -72,7 +72,7 @@ public class FoodLogsPresenter {
         return foodLogEntry;
     }
 
-    private String formatDate(Date date) {
+    public String formatDate(Date date) {
         return dateFormat.format(date);
     }
 

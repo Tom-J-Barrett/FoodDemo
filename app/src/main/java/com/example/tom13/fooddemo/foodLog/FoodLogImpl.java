@@ -8,14 +8,20 @@ import java.util.Date;
 
 public class FoodLogImpl implements FoodLog {
 
+    private int id;
     private String food;
     private double calories;
     private Date timestamp;
 
-    public FoodLogImpl (String food, double calories, Date timestamp) {
+    public FoodLogImpl (int id, String food, double calories, Date timestamp) {
+        this.id = id;
         this.food = food;
         this.calories = calories;
         this.timestamp = timestamp;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getFood() {

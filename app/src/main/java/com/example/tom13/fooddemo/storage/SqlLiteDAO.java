@@ -56,7 +56,7 @@ public class SqlLiteDAO implements DAO{
 
     @Override
     public List<FoodLog> getLogsByDay(Date date) {
-        String query = "Select * FROM FoodLog WHERE Timestamp = '" + parseDate(date) + "';";
+        String query = "Select rowid, * FROM FoodLog WHERE Timestamp = '" + parseDate(date) + "';";
 
         return selectQuery(query);
     }
@@ -73,7 +73,7 @@ public class SqlLiteDAO implements DAO{
         calendar2.add(Calendar.WEEK_OF_MONTH, 1);
         Date endOfWeek = calendar2.getTime();
 
-        String query = "Select * FROM FoodLog WHERE Timestamp BETWEEN '" + parseDate(startOfWeek) + "' AND '" + parseDate(endOfWeek) + "';";
+        String query = "Select rowid, * FROM FoodLog WHERE Timestamp BETWEEN '" + parseDate(startOfWeek) + "' AND '" + parseDate(endOfWeek) + "';";
 
         return selectQuery(query);
     }
@@ -90,7 +90,7 @@ public class SqlLiteDAO implements DAO{
         calendar2.add(Calendar.MONTH, 1);
         Date endOfMonth = calendar2.getTime();
 
-        String query = "Select * FROM FoodLog WHERE Timestamp BETWEEN '" + parseDate(startOfMonth) + "' AND '" + parseDate(endOfMonth) + "';";
+        String query = "Select rowid, * FROM FoodLog WHERE Timestamp BETWEEN '" + parseDate(startOfMonth) + "' AND '" + parseDate(endOfMonth) + "';";
 
         return selectQuery(query);
     }
@@ -100,7 +100,7 @@ public class SqlLiteDAO implements DAO{
         Cursor resultSet = database.rawQuery(query, null);
         while(resultSet.moveToNext()) {
             try {
-                foodLogs.add(new FoodLogImpl(resultSet.getString(0), resultSet.getDouble(1), dateFormat.parse(resultSet.getString(2))));
+                foodLogs.add(new FoodLogImpl(resultSet.getInt(0), resultSet.getString(1), resultSet.getDouble(2), dateFormat.parse(resultSet.getString(3))));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
