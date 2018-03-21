@@ -51,7 +51,7 @@ public class CaptureImagePresenter {
 
         output = new File(dir, "CameraContentDemo.jpg");
         i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(output));
-
+        dir.delete();
         activity.startActivityForResult(i, CONTENT_REQUEST);
     }
 
@@ -66,6 +66,7 @@ public class CaptureImagePresenter {
         if (requestCode == CONTENT_REQUEST && resultCode == RESULT_OK) {
             Bitmap bitmap = BitmapFactory.decodeFile(output.getAbsolutePath());
             Bitmap orientedBitmap = ExifUtil.rotateBitmap(output.getAbsolutePath(), bitmap);
+            Bitmap.createScaledBitmap(orientedBitmap, 300, 400, false);
             ImageView imageView= activity.findViewById(R.id.imageView);
             imageView.setImageBitmap(orientedBitmap);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -102,6 +103,7 @@ public class CaptureImagePresenter {
     public void writeToLogs(String food, String calories) {
         DAO dao = new DAOFactory().getDAO(activity);
         dao.addFoodLog(new FoodLogImpl(0, food, Double.parseDouble(calories), new Date()));
+        output.delete();
         goToMainActivity();
     }
 

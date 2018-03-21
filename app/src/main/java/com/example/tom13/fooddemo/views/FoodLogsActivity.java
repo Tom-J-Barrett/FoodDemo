@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -15,13 +16,16 @@ import android.widget.TextView;
 import com.example.tom13.fooddemo.R;
 import com.example.tom13.fooddemo.presenters.FoodLogsPresenter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class FoodLogsActivity extends AppCompatActivity {
 
     private FoodLogsPresenter foodLogsPresenter;
     private String currentSortType;
     private Date dateToQuery = new Date();
+    private List<String> foodLogs = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +69,10 @@ public class FoodLogsActivity extends AppCompatActivity {
     }
 
     private void populateListView() {
+        foodLogs = foodLogsPresenter.getListViewContents(currentSortType, dateToQuery);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_list_item_1, foodLogsPresenter.getListViewContents(currentSortType, dateToQuery));
+                this, android.R.layout.simple_list_item_1, foodLogs);
         ListView listView = findViewById(R.id.listView);
         listView.setAdapter(null);
         listView.setAdapter(adapter);
