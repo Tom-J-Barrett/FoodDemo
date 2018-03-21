@@ -34,10 +34,6 @@ public class FoodLogsActivity extends AppCompatActivity {
     private void populateWidgets() {
         populateSpinner();
         populateListView();
-
-        TextView textView = findViewById(R.id.textView8);
-        textView.setText(foodLogsPresenter.formatDate(new Date()));
-
         populateCalorieCount();
     }
 
@@ -86,18 +82,23 @@ public class FoodLogsActivity extends AppCompatActivity {
     }
 
     private void updateDate() {
-        dateToQuery = foodLogsPresenter.updateDateOnFling(dateToQuery);
-        TextView textView = findViewById(R.id.textView8);
-        textView.setText(foodLogsPresenter.formatDate(dateToQuery));
         populateListView();
         populateCalorieCount();
     }
 
     public void onPreviousPressed(View view) {
-
+        Thread t = new Thread(new Runnable() { public void run() {
+            dateToQuery = foodLogsPresenter.updateDatePrevious(dateToQuery);
+        }});
+        t.start();
+        updateDate();
     }
 
     public void onNextPressed(View view) {
+        Thread t = new Thread(new Runnable() { public void run() {
+            dateToQuery = foodLogsPresenter.updateDateNext(dateToQuery);
+        }});
+        t.start();
         updateDate();
     }
 }

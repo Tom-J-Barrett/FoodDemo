@@ -64,7 +64,7 @@ public class CaptureImageActivity extends AppCompatActivity {
 
         EditText editText = findViewById(R.id.editText3);
         editText.setVisibility(View.VISIBLE);
-        editText.setText(prediction);
+        editText.setText(prediction.toUpperCase());
 
         EditText editText2 = findViewById(R.id.editText5);
         editText2.setVisibility(View.VISIBLE);

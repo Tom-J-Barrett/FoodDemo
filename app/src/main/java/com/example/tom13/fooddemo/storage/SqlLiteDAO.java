@@ -57,7 +57,7 @@ public class SqlLiteDAO implements DAO{
     @Override
     public List<FoodLog> getLogsByDay(Date date) {
         String query = "Select rowid, * FROM FoodLog WHERE Timestamp = '" + parseDate(date) + "';";
-
+        System.out.println(parseDate(date) + "HI");
         return selectQuery(query);
     }
 

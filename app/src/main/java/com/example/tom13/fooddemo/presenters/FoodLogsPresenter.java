@@ -59,6 +59,7 @@ public class FoodLogsPresenter {
     }
 
     public List<String> getListViewContents(String listType, Date dateToQuery) {
+        populateMaps();
         this.listType = listType;
         this.dateToQuery = dateToQuery;
         calories = 0.0;
@@ -80,10 +81,18 @@ public class FoodLogsPresenter {
         return formatDate(dateToQuery);
     }
 
-    public Date updateDateOnFling(Date date) {
+    public Date updateDateNext(Date date) {
+        return changeDate(date, 1);
+    }
+
+    public Date updateDatePrevious(Date date) {
+        return changeDate(date, -1);
+    }
+
+    private Date changeDate(Date date, int value) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        calendar.add(dateChanges.get(listType), 1);
+        calendar.add(dateChanges.get(listType), value);
         Date newDate = calendar.getTime();
         return newDate;
     }
