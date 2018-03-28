@@ -9,6 +9,7 @@ import java.io.File;
 
 /**
  * Created by tom13 on 16/03/2018.
+ * Converts image to base64 String.
  */
 
 public class Base64Image {
@@ -21,8 +22,11 @@ public class Base64Image {
     }
 
     public String toBase64() {
-        Bitmap imageBitmap = BitmapFactory.decodeFile(image.getAbsolutePath());
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 8;
 
+        Bitmap imageBitmap = BitmapFactory.decodeFile(image.getAbsolutePath(), options);
+        Bitmap.createScaledBitmap(imageBitmap, 300, 400, false);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();

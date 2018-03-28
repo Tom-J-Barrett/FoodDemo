@@ -15,6 +15,7 @@ import okhttp3.Response;
 
 /**
  * Created by tom13 on 08/03/2018.
+ * Background process used to send an image to a host.
  */
 
 public class UploadImage extends AsyncTask<Void, Void, String> {

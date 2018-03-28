@@ -1,25 +1,22 @@
 package com.example.tom13.fooddemo.backgroundProcesses;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.example.tom13.fooddemo.presenters.CaptureImagePresenter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
-import java.util.List;
-
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
+
 import okhttp3.Response;
 
 /**
  * Created by tom13 on 16/03/2018.
+ * Background process to call the calorie estimation API.
+ * A searchQuery i.e "banana" must be passed to the class to query the API with.
  */
 
 public class CalorieEstimation extends AsyncTask<Void, Void, String> {
@@ -57,7 +54,7 @@ public class CalorieEstimation extends AsyncTask<Void, Void, String> {
             JSONObject hits = jsonArray.getJSONObject(0);
             JSONObject fields = hits.getJSONObject("fields");
             String calories = fields.getString("nf_calories");
-            result = searchQuery + "," + calories;
+            result = calories;
         } catch (JSONException e) {
             e.printStackTrace();
         }

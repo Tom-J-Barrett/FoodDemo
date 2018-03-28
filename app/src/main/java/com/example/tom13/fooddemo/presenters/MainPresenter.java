@@ -4,11 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.example.tom13.fooddemo.views.CaptureImageActivity;
-import com.example.tom13.fooddemo.views.UserLogsActivity;
+import com.example.tom13.fooddemo.views.FoodLogsActivity;
 
 
 /**
  * Created by tom13 on 06/03/2018.
+ * Presenter class to control MainActivity View.
  */
 
 public class MainPresenter {
@@ -26,7 +27,7 @@ public class MainPresenter {
     }
 
     public void userLogs() {
-        intent = new Intent(context, UserLogsActivity.class);
+        intent = new Intent(context, FoodLogsActivity.class);
         context.startActivity(intent);
     }
 

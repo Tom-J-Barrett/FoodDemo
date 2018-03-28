@@ -9,10 +9,12 @@ import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.os.Build;
 
+/**
+ * @see http://sylvana.net/jpegcrop/exif_orientation.html
+ * Class to rotate an image Bitmap.
+ */
+
 public class ExifUtil {
-    /**
-     * @see http://sylvana.net/jpegcrop/exif_orientation.html
-     */
     public static Bitmap rotateBitmap(String src, Bitmap bitmap) {
         try {
             int orientation = getExifOrientation(src);
@@ -50,7 +52,6 @@ public class ExifUtil {
                 default:
                     return bitmap;
             }
-
             try {
                 Bitmap oriented = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
                 bitmap.recycle();
@@ -62,7 +63,6 @@ public class ExifUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return bitmap;
     }
 
@@ -70,11 +70,6 @@ public class ExifUtil {
         int orientation = 1;
 
         try {
-            /**
-             * if your are targeting only api level >= 5
-             * ExifInterface exif = new ExifInterface(src);
-             * orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
-             */
             if (Build.VERSION.SDK_INT >= 5) {
                 Class<?> exifClass = Class.forName("android.media.ExifInterface");
                 Constructor<?> exifConstructor = exifClass.getConstructor(new Class[] { String.class });
