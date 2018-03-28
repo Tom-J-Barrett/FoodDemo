@@ -59,8 +59,8 @@
             android:layout_marginTop="122dp"
             android:background="@drawable/round_button2"
             android:onClick="onClickUserLogs"
-            android:text="      User Logs       "
             android:textColor="@color/toolbar"
+            android:text="      Food Logs      "
             android:textSize="20dp"
             android:textStyle="bold" />
 

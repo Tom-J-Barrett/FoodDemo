@@ -17,6 +17,7 @@ import java.util.Map;
 
 /**
  * Created by tom13 on 06/03/2018.
+ * Presenter class to control the FoodLogsActivity View.
  */
 
 public class FoodLogsPresenter {

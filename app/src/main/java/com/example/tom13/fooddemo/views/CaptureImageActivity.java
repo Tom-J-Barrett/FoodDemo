@@ -12,6 +12,9 @@ import android.widget.TextView;
 import com.example.tom13.fooddemo.R;
 import com.example.tom13.fooddemo.presenters.CaptureImagePresenter;
 
+/**
+ * View class for capturing an image and sending it to a host.
+ */
 public class CaptureImageActivity extends AppCompatActivity {
 
     private CaptureImagePresenter captureImagePresenter;

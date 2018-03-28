@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * Created by tom13 on 18/03/2018.
+ * Interface for data access objects.
  */
 
 public interface DAO {

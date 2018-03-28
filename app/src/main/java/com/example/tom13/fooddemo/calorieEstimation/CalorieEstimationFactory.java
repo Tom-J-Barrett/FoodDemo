@@ -6,7 +6,8 @@ import com.example.tom13.fooddemo.backgroundProcesses.CalorieEstimation;
 import com.example.tom13.fooddemo.presenters.CaptureImagePresenter;
 
 /**
- * Created by tom13 on 16/03/2018.
+ * Created by tom13 on 16/03/2018.g
+ * Factory class to provide extensibility in changing the resource for calorie estimation.
  */
 
 public class CalorieEstimationFactory {

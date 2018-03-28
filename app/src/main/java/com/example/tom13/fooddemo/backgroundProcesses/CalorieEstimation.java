@@ -15,6 +15,8 @@ import okhttp3.Response;
 
 /**
  * Created by tom13 on 16/03/2018.
+ * Background process to call the calorie estimation API.
+ * A searchQuery i.e "banana" must be passed to the class to query the API with.
  */
 
 public class CalorieEstimation extends AsyncTask<Void, Void, String> {

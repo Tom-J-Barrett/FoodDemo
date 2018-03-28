@@ -22,7 +22,6 @@ import static org.mockito.Mockito.mock;
 public class storageTest {
 
     private DAO dao;
-    private Context context;
     private List<FoodLog> foodLogs;
     private Date date;
     private FoodLog foodLog;
@@ -30,7 +29,6 @@ public class storageTest {
 
     @Before
     public void setup() {
-        context = mock(CaptureImageActivity.class);
         dao = mock(SqlLiteDAO.class);
         date = new Date();
         foodLog = new FoodLogImpl(0, "test", 0.0, date);
@@ -62,7 +60,7 @@ public class storageTest {
     private void setTestLog() {
         foodLogs = dao.getLogsByDay(date);
         foodLogs.forEach(f -> {
-            if(f.getFood() == "test") {
+            if(f.getFood().equals("test")) {
                 testLog = f;
             }
         });

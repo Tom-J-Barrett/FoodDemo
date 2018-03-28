@@ -22,7 +22,7 @@ import java.util.Locale;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
- * Singleton implementation
+ * Singleton SQLLite implementation of DAO interface.
  */
 
 public class SqlLiteDAO implements DAO{

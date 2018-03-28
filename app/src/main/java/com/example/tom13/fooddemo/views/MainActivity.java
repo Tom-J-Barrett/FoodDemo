@@ -8,6 +8,10 @@ import android.view.View;
 import com.example.tom13.fooddemo.R;
 import com.example.tom13.fooddemo.presenters.MainPresenter;
 
+/**
+ * Main view of the application.
+ * Options to take a picture or view food logs.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private MainPresenter mainPresenter;

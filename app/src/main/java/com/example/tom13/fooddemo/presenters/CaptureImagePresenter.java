@@ -31,6 +31,7 @@ import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by tom13 on 06/03/2018.
+ * Presenter class to control the CaptureImageActivity View.
  */
 
 public class CaptureImagePresenter {

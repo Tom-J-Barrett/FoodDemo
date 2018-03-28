@@ -9,6 +9,7 @@ import com.example.tom13.fooddemo.views.FoodLogsActivity;
 
 /**
  * Created by tom13 on 06/03/2018.
+ * Presenter class to control MainActivity View.
  */
 
 public class MainPresenter {

@@ -20,6 +20,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * View class to view a users food logs.
+ */
+
 public class FoodLogsActivity extends AppCompatActivity {
 
     private FoodLogsPresenter foodLogsPresenter;

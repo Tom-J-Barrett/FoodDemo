@@ -9,6 +9,7 @@ import java.io.File;
 
 /**
  * Created by tom13 on 16/03/2018.
+ * Converts image to base64 String.
  */
 
 public class Base64Image {
