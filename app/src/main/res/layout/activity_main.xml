@@ -53,14 +53,14 @@
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/button2"
+            android:layout_alignBottom="@+id/horizontalScrollView"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_marginTop="122dp"
+            android:layout_marginBottom="25dp"
             android:background="@drawable/round_button2"
             android:onClick="onClickUserLogs"
-            android:textColor="@color/toolbar"
             android:text="      Food Logs      "
+            android:textColor="@color/toolbar"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -80,13 +80,28 @@
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="34dp"
-            android:layout_toStartOf="@+id/textView2">
+            android:layout_toStartOf="@+id/textView2"
+            android:id="@+id/horizontalScrollView">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical" />
         </HorizontalScrollView>
+
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/round_button2"
+            android:onClick="onClickGallery"
+            android:text="       GALLERY       "
+            android:textColor="@color/toolbar"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
 
     </RelativeLayout>

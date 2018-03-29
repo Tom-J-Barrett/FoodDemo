@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.widget.ImageView;
@@ -24,6 +25,8 @@ import com.example.tom13.fooddemo.views.MainActivity;
 
 import java.io.File;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -41,15 +44,32 @@ public class CaptureImagePresenter {
     private File output=null;
     private String top1_prediction;
     private String calories;
+    private Map<String, Runnable> imageCapture;
+    private static final int GALLERY = 1;
 
-    public CaptureImagePresenter(Activity activity) {
+    public CaptureImagePresenter(Activity activity, String medium) {
         this.activity = activity;
+        this.imageCapture = new HashMap<>();
+        imageCapture.put("camera", () -> takePicture());
+        imageCapture.put("gallery", () -> gallery());
+
+        imageCapture.get(medium).run();
     }
 
-    public void takePicture() {
+    private void gallery() {
+        Intent i =new Intent(Intent.ACTION_GET_CONTENT);
+        i.setType("image/*");
+        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+        output = new File(dir, "CameraContentDemo.jpg");
+        i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(output));
+        dir.delete();
+
+        activity.startActivityForResult(Intent.createChooser(i, "Select Picture"), GALLERY);
+    }
+
+    private void takePicture() {
         Intent i =new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-
         output = new File(dir, "CameraContentDemo.jpg");
         i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(output));
         dir.delete();
@@ -64,7 +84,7 @@ public class CaptureImagePresenter {
             EasyPermissions.requestPermissions(activity, "Access for storage",
                     101, galleryPermissions);
         }
-        if (requestCode == CONTENT_REQUEST && resultCode == RESULT_OK) {
+        if (requestCode == CONTENT_REQUEST || requestCode == GALLERY && resultCode == RESULT_OK) {
             Bitmap bitmap = BitmapFactory.decodeFile(output.getAbsolutePath());
             Bitmap orientedBitmap = ExifUtil.rotateBitmap(output.getAbsolutePath(), bitmap);
             Bitmap.createScaledBitmap(orientedBitmap, 300, 400, false);

@@ -24,8 +24,8 @@ public class CaptureImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_capture_image);
 
-        captureImagePresenter = new CaptureImagePresenter(this);
-        captureImagePresenter.takePicture();
+        Bundle bundle = getIntent().getExtras();
+        captureImagePresenter = new CaptureImagePresenter(this, bundle.getString("medium"));
     }
 
     @Override

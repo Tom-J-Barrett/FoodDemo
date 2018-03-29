@@ -23,11 +23,18 @@ public class MainPresenter {
 
     public void takePhoto() {
         intent = new Intent(context, CaptureImageActivity.class);
+        intent.putExtra("medium", "camera");
         context.startActivity(intent);
     }
 
     public void userLogs() {
         intent = new Intent(context, FoodLogsActivity.class);
+        context.startActivity(intent);
+    }
+
+    public void gallery() {
+        intent = new Intent(context, CaptureImageActivity.class);
+        intent.putExtra("medium", "gallery");
         context.startActivity(intent);
     }
 
