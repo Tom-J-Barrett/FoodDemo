@@ -43,6 +43,7 @@ public class FoodLogsActivity extends AppCompatActivity {
         populateSpinner();
         populateListView();
         populateCalorieCount();
+        updateTextView();
     }
 
     private void populateSpinner() {
@@ -70,6 +71,7 @@ public class FoodLogsActivity extends AppCompatActivity {
     public void onSpinnerChange() {
         populateListView();
         populateCalorieCount();
+        updateTextView();
     }
 
     private void populateListView() {
@@ -94,6 +96,7 @@ public class FoodLogsActivity extends AppCompatActivity {
     private void updateDate() {
         populateListView();
         populateCalorieCount();
+        updateTextView();
     }
 
     public void onPreviousPressed(View view) {
@@ -110,5 +113,10 @@ public class FoodLogsActivity extends AppCompatActivity {
         }});
         t.start();
         updateDate();
+    }
+
+    private void updateTextView() {
+        TextView textView = findViewById(R.id.textView7);
+        textView.setText(foodLogsPresenter.formatDate(dateToQuery));
     }
 }
