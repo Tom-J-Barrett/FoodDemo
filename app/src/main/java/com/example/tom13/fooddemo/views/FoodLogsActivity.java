@@ -100,18 +100,12 @@ public class FoodLogsActivity extends AppCompatActivity {
     }
 
     public void onPreviousPressed(View view) {
-        Thread t = new Thread(new Runnable() { public void run() {
-            dateToQuery = foodLogsPresenter.updateDatePrevious(dateToQuery);
-        }});
-        t.start();
+        dateToQuery = foodLogsPresenter.updateDatePrevious(dateToQuery);
         updateDate();
     }
 
     public void onNextPressed(View view) {
-        Thread t = new Thread(new Runnable() { public void run() {
-            dateToQuery = foodLogsPresenter.updateDateNext(dateToQuery);
-        }});
-        t.start();
+        dateToQuery = foodLogsPresenter.updateDateNext(dateToQuery);
         updateDate();
     }
 

@@ -49,9 +49,7 @@ public class CaptureImageActivity extends AppCompatActivity {
         ProgressBar progressBar = findViewById(R.id.progressBar2);
         progressBar.setVisibility(View.VISIBLE);
 
-        Thread t = new Thread(new Runnable() { public void run() {
-            captureImagePresenter.sendImage();
-        }});
+        Thread t = new Thread(() -> captureImagePresenter.sendImage());
         t.start();
     }
 
