@@ -31,4 +31,8 @@ public class MainActivity extends AppCompatActivity {
     public void onClickUserLogs(View view) {
         mainPresenter.userLogs();
     }
+
+    public void onClickGallery(View view) {
+        mainPresenter.gallery();
+    }
 }
