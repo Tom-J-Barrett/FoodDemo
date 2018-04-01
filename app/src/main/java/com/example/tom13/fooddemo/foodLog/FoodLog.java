@@ -13,4 +13,7 @@ public interface FoodLog {
     double getCalories();
     Date getTimestamp();
     int getId();
+
+    @Override
+    String toString();
 }

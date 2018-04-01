@@ -1,7 +1,9 @@
 package com.example.tom13.fooddemo.views;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -14,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.tom13.fooddemo.R;
+import com.example.tom13.fooddemo.foodLog.FoodLog;
+import com.example.tom13.fooddemo.foodLog.FoodLogImpl;
 import com.example.tom13.fooddemo.presenters.FoodLogsPresenter;
 
 import java.util.ArrayList;
@@ -29,7 +33,7 @@ public class FoodLogsActivity extends AppCompatActivity {
     private FoodLogsPresenter foodLogsPresenter;
     private String currentSortType;
     private Date dateToQuery = new Date();
-    private List<String> foodLogs = new ArrayList<>();
+    private List<FoodLog> foodLogs = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,11 +81,37 @@ public class FoodLogsActivity extends AppCompatActivity {
     private void populateListView() {
         foodLogs = foodLogsPresenter.getListViewContents(currentSortType, dateToQuery);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+        ArrayAdapter adapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1, foodLogs);
         ListView listView = findViewById(R.id.listView);
         listView.setAdapter(null);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener((adapterView, view, i, l) -> {
+            alertDialog(i);
+        });
+    }
+
+    private void alertDialog(int i) {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder.setMessage("Are you sure you want to delete this log?");
+        alertBuilder.setCancelable(true);
+
+        alertBuilder.setPositiveButton(
+                "Yes",
+                (dialog, id) -> {
+                    List<FoodLog> foodLogsToDelete = new ArrayList<>();
+                    foodLogsToDelete.add(foodLogs.get(i));
+                    foodLogsPresenter.deleteFoodLog(foodLogsToDelete);
+                    populateListView();
+                });
+
+        alertBuilder.setNegativeButton(
+                "No",
+                (dialog, id) -> dialog.cancel());
+
+        AlertDialog alert = alertBuilder.create();
+        alert.show();
     }
 
     private void populateCalorieCount() {
@@ -111,6 +141,6 @@ public class FoodLogsActivity extends AppCompatActivity {
 
     private void updateTextView() {
         TextView textView = findViewById(R.id.textView7);
-        textView.setText(foodLogsPresenter.formatDate(dateToQuery));
+        textView.setText(FoodLogImpl.formatDate(dateToQuery));
     }
 }

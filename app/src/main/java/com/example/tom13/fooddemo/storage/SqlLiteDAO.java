@@ -100,7 +100,11 @@ public class SqlLiteDAO implements DAO{
         Cursor resultSet = database.rawQuery(query, null);
         while(resultSet.moveToNext()) {
             try {
-                foodLogs.add(new FoodLogImpl(resultSet.getInt(0), resultSet.getString(1), resultSet.getDouble(2), dateFormat.parse(resultSet.getString(3))));
+                foodLogs.add(new FoodLogImpl.FoodLogBuilder(resultSet.getString(1))
+                                                            .withId(resultSet.getInt(0))
+                                                            .withCalories(resultSet.getDouble(2))
+                                                            .withTimestamp(dateFormat.parse(resultSet.getString(3)))
+                                                            .build());
             } catch (ParseException e) {
                 e.printStackTrace();
             }

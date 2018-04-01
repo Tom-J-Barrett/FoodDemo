@@ -3,6 +3,7 @@ package com.example.tom13.fooddemo.presenters;
 import android.app.Activity;
 
 import com.example.tom13.fooddemo.foodLog.FoodLog;
+import com.example.tom13.fooddemo.foodLog.FoodLogImpl;
 import com.example.tom13.fooddemo.storage.DAO;
 import com.example.tom13.fooddemo.storage.DAOFactory;
 
@@ -28,8 +29,6 @@ public class FoodLogsPresenter {
     private Map<String, Integer> dateChanges;
     private  List<FoodLog> foodLogs;
     private Date dateToQuery;
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat(
-            "yyyy-MM-dd", Locale.getDefault());
     private String listType;
     private Double calories = 0.0;
 
@@ -60,27 +59,24 @@ public class FoodLogsPresenter {
         dateChanges.put("Month", Calendar.MONTH);
     }
 
-    public List<String> getListViewContents(String listType, Date dateToQuery) {
+    public List<FoodLog> getListViewContents(String listType, Date dateToQuery) {
         this.listType = listType;
         this.dateToQuery = dateToQuery;
         calories = 0.0;
-        List<String> foodLogEntry = new ArrayList<>();
+       // List<String> foodLogEntry = new ArrayList<>();
         foodLogs = new ArrayList<>();
         listViewOptions.get(listType).run();
 
         for(FoodLog foodLog : foodLogs) {
-            foodLogEntry.add(formatDate(foodLog.getTimestamp()) + "\n" + foodLog.getFood().toUpperCase() + " / " + foodLog.getCalories() + " Calories");
+            //foodLogEntry.add(foodLog.toString());
             calories += foodLog.getCalories();
         }
-        return foodLogEntry;
-    }
-
-    public String formatDate(Date date) {
-        return dateFormat.format(date);
+        //return foodLogEntry;
+        return foodLogs;
     }
 
     public String getDate() {
-        return formatDate(dateToQuery);
+        return FoodLogImpl.formatDate(dateToQuery);
     }
 
     public Date updateDateNext(Date date) {
@@ -113,5 +109,9 @@ public class FoodLogsPresenter {
 
     private void getLogsByMonth() {
         foodLogs = dao.getLogsByMonth(dateToQuery);
+    }
+
+    public void deleteFoodLog(List<FoodLog> foodLogs) {
+        dao.deleteFoodLogs(foodLogs);
     }
 }
