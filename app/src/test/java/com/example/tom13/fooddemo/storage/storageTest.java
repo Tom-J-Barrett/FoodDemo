@@ -31,7 +31,10 @@ public class storageTest {
     public void setup() {
         dao = mock(SqlLiteDAO.class);
         date = new Date();
-        foodLog = new FoodLogImpl(0, "test", 0.0, date);
+        foodLog = new FoodLogImpl.FoodLogBuilder("test")
+                                    .withCalories(0.0)
+                                    .withTimestamp(date)
+                                    .build();
     }
 
     @Test
