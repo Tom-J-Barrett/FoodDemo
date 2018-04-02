@@ -20,7 +20,10 @@ public class foodLogTest {
 
     @Before
     public void setUp() {
-        foodLog = new FoodLogImpl(0, "banana", 59.03, new Date());
+        foodLog = new FoodLogImpl.FoodLogBuilder("banana")
+                                    .withCalories(59.03)
+                                    .withTimestamp(timestamp)
+                                    .build();
     }
 
     @Test
