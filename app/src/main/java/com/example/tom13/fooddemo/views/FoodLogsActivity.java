@@ -103,7 +103,7 @@ public class FoodLogsActivity extends AppCompatActivity {
                     List<FoodLog> foodLogsToDelete = new ArrayList<>();
                     foodLogsToDelete.add(foodLogs.get(i));
                     foodLogsPresenter.deleteFoodLog(foodLogsToDelete);
-                    populateListView();
+                    updateDate();
                 });
 
         alertBuilder.setNegativeButton(
